@@ -1,0 +1,1793 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+    <title>Domain Definition Summary - CASP15</title>
+    <link rel="stylesheet" type="text/css" href="main.css?ver=001">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script type="text/javascript" language="javascript" src="main.js"></script>
+	<!-- The following line is used only because Perl CGI templates are buggy and it is needed for a quickfix -->
+	<!-- FIXME -->
+	<script type="text/javascript">;</script>
+</head>
+<body bgcolor="#ffffff" text="#666666" link="#006699" alink="#006699" vlink="#006699" topmargin="0" leftmargin="0" bottommargin="0" rightmargin="0">
+    <table height="100%" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table width="100%" height="4" border="0" cellpadding="0" cellspacing="0"><tr><td></td></tr></table>
+                
+                <table width="100%" height="70" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td width="195">
+				<div align="center">
+					<a href="index.cgi"><img src="images/casp15_small.gif" border="0"></a>
+				</div>
+			</td>
+                        <td>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td width="20"><img src="images/left-top-header.gif" width="20" height="70"></td>
+                                    <td background="images/bg-top-header.gif">
+                                        <table width="570" border="0" align="center" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <tr>
+                                                    <td nowrap><div align="center">
+                                                    <span class="title"><b> 15th Community Wide Experiment on the<br>Critical Assessment of Techniques for Protein Structure Prediction </b></span>
+                                                    </div></td>
+                                                </tr>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="110">
+                            <table width="100%" height="70" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td bgcolor="#f1f1f1">
+                                        <table width="100" border="0" align="center" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td><a href="http://predictioncenter.org"><div align="center"><img src="images/rhome2.gif" border="0" width="20" height="20"></div></a></td>
+                                                <!--<td><div align="center"><img src="images/rsitemap2.gif" border="0" width="20" height="20"></div></td>-->
+                                                <td><a href="javascript:create_bookmark(document.title, location.href);"><div align="center"><img src="images/rfav2.gif" border="0" width="20" height="20"></div></a></td>
+                                                <td><a href="javascript:print_page();"><div align="center"><img src="images/rprint2.gif" border="0" width="20" height="20"></div></a></td>
+                                                <td><script> document.write('<a href="mailto:' + email('casp', 'predictioncenter.org') + '"><div align="center"><img src="images/rcontact2.gif" border="0" width="20" height="20"></div></a>')</script></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr height="100%" valign="top">
+            <td height="100%" valign="top">
+     
+
+<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+ 	<script type="text/javascript" src="jquery.tablesorter.js"></script>
+<script type="text/javascript">
+	  $(document).ready(function() {
+	    $("#table_results").tablesorter();
+				$('.tablesorter').bind('sortEnd', function () {
+			    $('.tablesorter td:first-child').each( function(index) { $(this).text((index+1)+'.'); } );
+
+		} );
+
+	  });
+	</script>
+<table width="100%" border="0" cellpadding="0" cellspacing="5" class="text" align="center">
+    <tr>
+	<td width="190" valign="top">
+	                            <script type="text/javascript" src="yahoo.js" ></script>
+                            <script type="text/javascript" src="event.js"></script>
+                            <script type="text/javascript" src="treeview.js" ></script>
+                            <script type="text/javascript" src="jktreeview.js" ></script>
+                            <style>
+                            /* via css class selector */
+                            .treemenu .ygtvtn {background: transparent;  width:0.8em; height:20px; }
+                            .treemenu .ygtvtm { background: url(images/menu/collapse.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvtmh { background: url(images/menu/collapseh.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvtp { background: url(images/menu/expand.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvtph { background: url(images/menu/expandh.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvln { background: transparent; width:0.8em; height:20px; }
+                            .treemenu .ygtvlm { background: url(images/menu/collapse.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvlmh { background: url(images/menu/collapseh.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvlp { background: url(images/menu/expand.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvlph { background: url(images/menu/expandh.gif) 0 6px no-repeat; width:0.8em; height:22px; cursor:pointer }
+                            .treemenu .ygtvloading { background: url(images/menu/loading.gif) 0 6px no-repeat; width:0.8em; height:22px; }
+                            .treemenu .ygtvdepthcell { background: transparent; width:0.8em; height:20px; }
+                            .treemenu .ygtvblankdepthcell {background: transparent;  width:0.8em; height:20px; }
+                            .treemenu .ygtvitem { border: 0px solid grey; }  
+                            .treemenu .ygtvchildren { }
+                            
+                            .treemenu .ygtvlabel, .ygtvlabel:link, .ygtvlabel:visited, .ygtvlabel:hover { 
+                            	font-family: Verdana, Arial, Helvetica, sans-serif;
+                                font-size: 12px;
+                                /*font-weight: bold;*/
+                            }
+                            </style>
+                            <table cellpadding="0" cellspacing="0" style="width: 190px">
+                                <tr>
+                                    <td>
+                                        <table cellpadding="0" cellspacing="0" style="width: 100%; height: 3px; background-color: #3E536F"><tr><td></td></tr></table>
+                                        
+                                        <table cellpadding="1" cellspacing="0" style="width: 100%; background-color: #E8E8E8">
+                                            <tr>
+                                                <td>
+                                                    <table cellpadding="3" cellspacing="0" style="width: 188px; background-image: url(images/menubg3.gif); background-color: #ffffff" class="text">
+                                                        <tr>
+                                                            <td class="menu-header">Menu</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div id="mainmenu" class="treemenu"></div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        
+                                        <table cellpadding="0" cellspacing="0" style="width: 100%; height: 3px; background-color: #3E536F"><tr><td></td></tr></table>
+                                    </td>
+                                </tr>
+                            </table>
+                            <script type="text/javascript">
+                            
+                            //var host_url ="http://localhost";
+                            //var host_url ="http://predictioncenter.org";
+			    var host_url = ""; 
+                            
+                            var palmtree = new jktreeview("mainmenu")
+                            palmtree.addItem("<strong>Home</strong>", "", host_url + "/index.cgi", false)
+/*bug fix - do not remove it !!!  */
+                            
+			    
+                                palmtree.addItem("<strong>PC Login</strong>", "", host_url + "/login.cgi", false)
+                                palmtree.addItem("<strong>PC Registration</strong>", "", host_url + "/registration.cgi", false)
+                            
+
+                            var casp_branch = palmtree.addItem("<strong>CASP Experiments</strong>", "", host_url + "/index.cgi", true)
+
+//------------- CASP16
+/* Not expanding*/  
+		var casp_casp16_branch = palmtree.addItem("<strong>CASP16 (2024)</strong>", casp_branch, host_url + "/casp16/index.cgi", false)
+
+/* Expanding 
+	var casp_casp16_branch = palmtree.addItem("<strong>CASP16 (2024)</strong>", casp_branch, "javascript:casp_casp16_branch.expand();", true)
+	palmtree.addItem("Home", casp_casp16_branch, host_url + "/casp16/index.cgi", false)
+        palmtree.addItem("Registration", casp_casp16_branch, host_url + "/casp16/registration.cgi", false)
+	palmtree.addItem("My CASP16 profile", casp_casp16_branch, host_url + "/casp16/groups.cgi", false)
+*/
+
+// ------------------- CASP15 and below
+	palmtree.addItem("CASP15 (2022)", casp_branch, host_url + "/casp15/index.cgi", false)
+	palmtree.addItem("CASP14 (2020)", casp_branch, host_url + "/casp14/index.cgi", false)
+	palmtree.addItem("CASP13 (2018)", casp_branch, host_url + "/casp13/index.cgi", false)
+	palmtree.addItem("CASP12 (2016)", casp_branch, host_url + "/casp12/index.cgi", false)
+	palmtree.addItem("CASP11 (2014)", casp_branch, host_url + "/casp11/index.cgi", false)
+	palmtree.addItem("CASP10 (2012)", casp_branch, host_url + "/casp10/index.cgi", false)
+	palmtree.addItem("CASP9 (2010)", casp_branch, host_url + "/casp9/index.cgi", false)
+	palmtree.addItem("CASP8 (2008)", casp_branch, host_url + "/casp8/index.cgi", false)
+        palmtree.addItem("CASP7 (2006)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP7", false)
+        palmtree.addItem("CASP6 (2004)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP6", false)
+        palmtree.addItem("CASP5 (2002)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP5", false)
+        palmtree.addItem("CASP4 (2000)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP4", false)
+	palmtree.addItem("CASP3 (1998)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP3", false)
+        palmtree.addItem("CASP2 (1996)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP2", false)
+        palmtree.addItem("CASP1 (1994)", casp_branch, host_url + "/decoysets2019/description.cgi?casp=CASP1", false)
+//        palmtree.addItem("CASP7 (2006)", casp_branch, host_url + "/download_area/CASP7/", false)
+//        palmtree.addItem("CASP6 (2004)", casp_branch, host_url + "/download_area/CASP6/", false)
+//        palmtree.addItem("CASP5 (2002)", casp_branch, host_url + "/download_area/CASP5/", false)
+//        palmtree.addItem("CASP4 (2000)", casp_branch, host_url + "/download_area/CASP4/", false)
+//        palmtree.addItem("CASP3 (1998)", casp_branch, host_url + "/download_area/CASP3/", false)
+//        palmtree.addItem("CASP2 (1996)", casp_branch, host_url + "/download_area/CASP2/", false)
+//        palmtree.addItem("CASP1 (1994)", casp_branch, host_url + "/download_area/CASP1/", false)
+
+
+
+// ---------------------CASP ROLL
+// /* Not expanding */           var casp_casprol_branch = palmtree.addItem("CASP ROLL", casp_branch, host_url + "/casprol/index.cgi", false)
+// /* Expand */                var casp_casprol_branch = palmtree.addItem("<strong>CASP ROLL</strong>", casp_branch, "javascript:casp_casprol_branch.expand();", false)
+//                            palmtree.addItem("Home", casp_casprol_branch, host_url + "/casprol/index.cgi", false)
+//			    palmtree.addItem("Registration", casp_casprol_branch, host_url + "/casprol/registration.cgi", false) 
+//                            palmtree.addItem("My CASP ROLL profile", casp_casprol_branch, host_url + "/casprol/groups.cgi", false)
+// NotEexpanding-GoToSubmissionForm    var casp_casprol_target = palmtree.addItem("Targets", casp_casprol_branch, host_url + "/casprol/targets.cgi", false)
+/* TARGETS: Expand - begin                         
+			    var casp_casprol_target = palmtree.addItem("Targets", casp_casprol_branch, "javascript:casp_casprol_target.expand();", true)
+                            palmtree.addItem("Target List", casp_casprol_target, host_url + "/casprol/targetlist.cgi", false)
+                            palmtree.addItem("Target Submission", casp_casprol_target, host_url + "/casprol/targets_submission.cgi", false)
+ Expand - end */
+// Go to submission form    var casp_casprol_prediction = palmtree.addItem("Predictions", casp_casprol_branch, host_url + "/casprol/predictions_submission.cgi", false)
+/* Expand - begin                 var casp_casprol_prediction = palmtree.addItem("Predictions", casp_casprol_branch, "javascript:casp_casprol_prediction.expand();", false)
+                            palmtree.addItem("Submit a prediction", casp_casprol_prediction, host_url + "/casprol/predictions_submission.cgi", false)
+                            palmtree.addItem("Model Viewer", casp_casprol_prediction, host_url + "/casprol/predictions.cgi", false)
+//                            palmtree.addItem("Server Queries", casp_casprol_prediction, host_url + "/casprol/servers_distribution.cgi", false)
+       		            palmtree.addItem("Server Predictions", casp_casprol_prediction, host_url + "/casprol/status_n.cgi", false)
+			    palmtree.addItem("Server Tarballs", casp_casprol_prediction, host_url + "/download_area/CASPROL/server_predictions/", false)
+			    var casp_casprol_numbers = palmtree.addItem("CASP ROLL in numbers", casp_casprol_branch, host_url + "/casprol/numbers.cgi", false)
+Expand - end*/
+
+//---------------End CASP ROLL
+
+                            var casp_initiatives_branch = palmtree.addItem("<strong>Initiatives</strong>", "", "javascript:casp_initiatives_branch.expand();", false)
+//                            palmtree.addItem("Community Modeling Portal", casp_initiatives_branch, host_url + "/tmw/index.cgi", false)
+			    palmtree.addItem("CASP_Commons<br> (COVID-19,2020)", casp_initiatives_branch, host_url + "/caspcommons/index.cgi", false)
+                            palmtree.addItem("DecoySets", casp_initiatives_branch, host_url + "/decoysets/index.cgi", false)
+			    palmtree.addItem("CASP7.5 (2008)", casp_initiatives_branch, "http://predictioncenter.org/index.cgi?page=casp75", false)
+                            palmtree.addItem("CASPM (2007)", casp_initiatives_branch, host_url + "/caspm1/index.cgi", false)
+                            palmtree.addItem("CASPR (2006)", casp_initiatives_branch, host_url + "/caspR/", false)
+                            palmtree.addItem("CASP6.5 (2006)", casp_initiatives_branch, host_url + "/casp7/doc/MQA.html", false)
+
+//-------------Data Archive
+        var oDownloadData = {label: "<strong>Data Archive</strong>", id: "menu_downloads_id" };
+        var downloads_branch = palmtree.addItem(oDownloadData, "", host_url + "/download_area/", false)
+        palmtree.addItem("<strong>CASP16</strong>", downloads_branch, host_url + "/download_area/CASP16/", false)
+        palmtree.addItem("CASP15", downloads_branch, host_url + "/download_area/CASP15/", false)
+        palmtree.addItem("CASP14", downloads_branch, host_url + "/download_area/CASP14/", false)
+        palmtree.addItem("CASP13", downloads_branch, host_url + "/download_area/CASP13/", false)
+        palmtree.addItem("CASP12", downloads_branch, host_url + "/download_area/CASP12/", false)
+	palmtree.addItem("CASP11", downloads_branch, host_url + "/download_area/CASP11/", false)
+        palmtree.addItem("CASP10", downloads_branch, host_url + "/download_area/CASP10/", false)
+        palmtree.addItem("CASP9", downloads_branch, host_url + "/download_area/CASP9/", false)
+        palmtree.addItem("CASP8", downloads_branch, host_url + "/download_area/CASP8/", false)
+        palmtree.addItem("CASP7", downloads_branch, host_url + "/download_area/CASP7/", false)
+        palmtree.addItem("CASP6", downloads_branch, host_url + "/download_area/CASP6/", false)
+        palmtree.addItem("CASP5", downloads_branch, host_url + "/download_area/CASP5/", false)
+        palmtree.addItem("CASP4", downloads_branch, host_url + "/download_area/CASP4/", false)
+        palmtree.addItem("CASP3", downloads_branch, host_url + "/download_area/CASP3/", false)
+        palmtree.addItem("CASP2", downloads_branch, host_url + "/download_area/CASP2/", false)
+        palmtree.addItem("CASP1", downloads_branch, host_url + "/download_area/CASP1/", false)
+        palmtree.addItem("CASP_Commons", downloads_branch, host_url + "/download_area/CASPCOMMONS/", false)
+//	palmtree.addItem("CASP ROLL", downloads_branch, host_url + "/download_area/CASPROL/", false)
+//--------
+//      palmtree.addItem("<strong>Local Services</strong>", "", host_url + "/Services/index.html", false)
+        palmtree.addItem("<strong>Proceedings</strong>", "", host_url + "/index.cgi?page=proceedings", false)
+       	palmtree.addItem("<strong>CASP Measures</strong>", "", host_url + "/casp12/doc/help.html", false)
+           
+//	palmtree.addItem("<strong>Feedback</strong>", "", host_url + "/feedback.cgi", false)
+                           
+	palmtree.addItem("<strong>Assessors</strong>", "", host_url + "/index.cgi?page=assessors_list", false)
+
+        palmtree.addItem("<strong>People</strong>", "", host_url + "/index.cgi?page=people", false)
+
+        palmtree.addItem("<strong>Community Resources</strong>", "", host_url + "/index.cgi?page=links", false)
+//	palmtree.addItem("<strong>FORCASP Forum</strong>", "", host_url + "/forcasp/", false)
+	palmtree.addItem("<strong>Job Fair</strong>", "", host_url + "/jobfair/", false)
+
+//      palmtree.addItem("<strong>Login FAQ</strong>", "", host_url + "/faq.cgi", false) 
+
+        
+        palmtree.treetop.draw(); //REQUIRED LINE: Initalize tree
+</script>
+
+	
+	</td>
+	<td width="100%" valign="top">
+	<table width="100%" border="0" cellpadding="1" align="center" cellspacing="0" bgcolor="e8e8e8">
+	<tr>
+	    <td>
+	 <div id="content">
+<h2>Domain definitions and classifications</h2>
+<table width="100%" border="0"  cellpadding="3" cellspacing="0" id="table_results" class="tablesorter table_results">
+  <thead>
+	<tr>
+		<th class="headerNoSort"><strong>&nbsp;&nbsp;&nbsp;&nbsp;#</strong></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Target</strong></td></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Residues</strong></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Type</strong></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Domains</strong></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Residues in domain</strong></th>
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Classification</strong></th>
+		<!---th><strong>&nbsp;&nbsp;&nbsp;&nbsp;Release</strong></th--->
+		<th><strong>&nbsp;&nbsp;&nbsp;&nbsp;PDB</strong></th>
+	</tr>
+  <tbody>
+
+  <tr>
+	<td  style="width: 35px;">1.</td>
+	<td>T1104</a></td>
+	<td>117</td>
+        <td>All groups</td>
+        <td>T1104-D1: 1-117 </td>
+	<td><font >117</font></td>
+	<td>FM</td>
+	<!---td>2022-05-02</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7roa">7roa</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">2.</td>
+	<td>T1106s1</a></td>
+	<td>236</td>
+        <td>All groups</td>
+        <td>T1106s1-D1: 50-120 </td>
+	<td><font >71</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-05-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7qih">7qih</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">3.</td>
+	<td>T1106s2</a></td>
+	<td>236</td>
+        <td>All groups</td>
+        <td>T1106s2-D1: 2-112 </td>
+	<td><font >111</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7qih">7qih</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">4.</td>
+	<td>T1109</a></td>
+	<td>227</td>
+        <td>All groups</td>
+        <td>T1109-D1: 7-209,216-226 </td>
+	<td><font >214</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-05</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">5.</td>
+	<td>T1110</a></td>
+	<td>227</td>
+        <td>All groups</td>
+        <td>T1110-D1: 7-227 </td>
+	<td><font >221</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-05</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">6.</td>
+	<td>T1112</a></td>
+	<td>460</td>
+        <td>All groups</td>
+        <td>T1112-D1: 1-460 </td>
+	<td><font >460</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-05-09</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ork">8ork</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">7.</td>
+	<td>T1113</a></td>
+	<td>193</td>
+        <td>All groups</td>
+        <td>T1113-D1: 1-192 </td>
+	<td><font >192</font></td>
+	<td>FM</td>
+	<!---td>2022-05-10</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7uyx">7uyx</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">8.</td>
+	<td>T1114s1</a></td>
+	<td>1093</td>
+        <td>All groups</td>
+        <td>T1114s1-D1: 20-79 </td>
+	<td><font >60</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-05-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7utd">7utd</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">9.</td>
+	<td>T1114s1</a></td>
+	<td>1093</td>
+        <td>All groups</td>
+        <td>T1114s1-D2: 80-189 </td>
+	<td><font >110</font></td>
+	<td>not evaluated</td>
+	<!---td>2022-05-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7utd">7utd</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">10.</td>
+	<td>T1114s2</a></td>
+	<td>1093</td>
+        <td>All groups</td>
+        <td>T1114s2-D1: 48-369 </td>
+	<td><font >322</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7utd">7utd</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">11.</td>
+	<td>T1114s3</a></td>
+	<td>1093</td>
+        <td>All groups</td>
+        <td>T1114s3-D1: 4-516 </td>
+	<td><font >513</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7utd">7utd</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">12.</td>
+	<td>T1115</a></td>
+	<td>288</td>
+        <td>All groups</td>
+        <td>T1115-D1: 25-200 </td>
+	<td><font >176</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-12</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">13.</td>
+	<td>T1115</a></td>
+	<td>288</td>
+        <td>All groups</td>
+        <td>T1115-D2: 201-272 </td>
+	<td><font >72</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-12</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">14.</td>
+	<td>T1119</a></td>
+	<td>153</td>
+        <td>All groups</td>
+        <td>T1119-D1: 7-54 </td>
+	<td><font >48</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-05-16</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7sq4">7sq4</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">15.</td>
+	<td>T1120</a></td>
+	<td>235</td>
+        <td>All groups</td>
+        <td>T1120-D1: 8-125 </td>
+	<td><font >118</font></td>
+	<td>FM</td>
+	<!---td>2022-05-16</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7qvb">7qvb</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">16.</td>
+	<td>T1120</a></td>
+	<td>235</td>
+        <td>All groups</td>
+        <td>T1120-D2: 126-235 </td>
+	<td><font >110</font></td>
+	<td>FM</td>
+	<!---td>2022-05-16</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7qvb">7qvb</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">17.</td>
+	<td>T1121</a></td>
+	<td>381</td>
+        <td>All groups</td>
+        <td>T1121-D1: 2-204 </td>
+	<td><font >203</font></td>
+	<td>FM</td>
+	<!---td>2022-05-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7til">7til</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">18.</td>
+	<td>T1121</a></td>
+	<td>381</td>
+        <td>All groups</td>
+        <td>T1121-D2: 205-381 </td>
+	<td><font >177</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-05-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7til">7til</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">19.</td>
+	<td>T1122</a></td>
+	<td>241</td>
+        <td>All groups</td>
+        <td>T1122-D1: 4-237 </td>
+	<td><font >234</font></td>
+	<td>FM</td>
+	<!---td>2022-05-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8bbt">8bbt</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">20.</td>
+	<td>T1123</a></td>
+	<td>266</td>
+        <td>All groups</td>
+        <td>T1123-D1: 33-258 </td>
+	<td><font >226</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-05-18</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7uzt">7uzt</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">21.</td>
+	<td>T1124</a></td>
+	<td>383</td>
+        <td>All groups</td>
+        <td>T1124-D1: 7-384 </td>
+	<td><font >378</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-18</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7ux8">7ux8</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">22.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D1: 327-460 </td>
+	<td><font >134</font></td>
+	<td>FM</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">23.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D2: 461-608 </td>
+	<td><font >148</font></td>
+	<td>FM</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">24.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D3: 609-797 </td>
+	<td><font >189</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">25.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D4: 798-946 </td>
+	<td><font >149</font></td>
+	<td>FM</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">26.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D5: 947-1096 </td>
+	<td><font >150</font></td>
+	<td>FM</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">27.</td>
+	<td>T1125</a></td>
+	<td>1200</td>
+        <td>All groups</td>
+        <td>T1125-D6: 1097-1162 </td>
+	<td><font >66</font></td>
+	<td>FM</td>
+	<!---td>2022-05-19</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8h2n">8h2n</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">28.</td>
+	<td>T1127</a></td>
+	<td>211</td>
+        <td>All groups</td>
+        <td>T1127-D1: 6-210 </td>
+	<td><font >205</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-05-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8xbp">8xbp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">29.</td>
+	<td>T1129s2</a></td>
+	<td>1387</td>
+        <td>All groups</td>
+        <td>T1129s2-D1: 33-640 </td>
+	<td><font >608</font></td>
+	<td>FM</td>
+	<!---td>2022-05-23</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8a8c">8a8c</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">30.</td>
+	<td>T1130</a></td>
+	<td>198</td>
+        <td>All groups</td>
+        <td>T1130-D1: 28-133,139-195 </td>
+	<td><font >163</font></td>
+	<td>FM</td>
+	<!---td>2022-05-24</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">31.</td>
+	<td>T1131</a></td>
+	<td>161</td>
+        <td>All groups</td>
+        <td>T1131-D1: 1-161 </td>
+	<td><font >161</font></td>
+	<td>FM</td>
+	<!---td>2022-05-24</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">32.</td>
+	<td>T1132</a></td>
+	<td>102</td>
+        <td>All groups</td>
+        <td>T1132-D1: 5-102 </td>
+	<td><font >98</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-25</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ecx">8ecx</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">33.</td>
+	<td>T1133</a></td>
+	<td>585</td>
+        <td>All groups</td>
+        <td>T1133-D1: 4-427 </td>
+	<td><font >424</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-25</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8dys">8dys</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">34.</td>
+	<td>T1134s1</a></td>
+	<td>543</td>
+        <td>All groups</td>
+        <td>T1134s1-D1: 2-230 </td>
+	<td><font >229</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-26</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7ubz">7ubz</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">35.</td>
+	<td>T1134s2</a></td>
+	<td>543</td>
+        <td>All groups</td>
+        <td>T1134s2-D1: 10-313 </td>
+	<td><font >304</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-05-26</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7ubz">7ubz</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">36.</td>
+	<td>T1137s1</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s1-D1: 20-169 </td>
+	<td><font >150</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-30</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">37.</td>
+	<td>T1137s1</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s1-D2: 170-409 </td>
+	<td><font >240</font></td>
+	<td>FM</td>
+	<!---td>2022-05-30</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">38.</td>
+	<td>T1137s2</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s2-D1: 1-149 </td>
+	<td><font >149</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-30</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">39.</td>
+	<td>T1137s2</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s2-D2: 150-343 </td>
+	<td><font >194</font></td>
+	<td>FM</td>
+	<!---td>2022-05-30</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">40.</td>
+	<td>T1137s3</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s3-D1: 1-149 </td>
+	<td><font >149</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-31</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">41.</td>
+	<td>T1137s3</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s3-D2: 150-313 </td>
+	<td><font >164</font></td>
+	<td>FM</td>
+	<!---td>2022-05-31</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">42.</td>
+	<td>T1137s4</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s4-D1: 44-159 </td>
+	<td><font >116</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-05-31</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">43.</td>
+	<td>T1137s4</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s4-D2: 160-394 </td>
+	<td><font >235</font></td>
+	<td>FM</td>
+	<!---td>2022-05-31</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">44.</td>
+	<td>T1137s4</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s4-D3: 395-468 </td>
+	<td><font >74</font></td>
+	<td>FM</td>
+	<!---td>2022-05-31</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">45.</td>
+	<td>T1137s5</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s5-D1: 33-169 </td>
+	<td><font >137</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-01</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">46.</td>
+	<td>T1137s5</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s5-D2: 170-390 </td>
+	<td><font >221</font></td>
+	<td>FM</td>
+	<!---td>2022-06-01</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">47.</td>
+	<td>T1137s6</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s6-D1: 1-151 </td>
+	<td><font >151</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-01</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">48.</td>
+	<td>T1137s6</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s6-D2: 152-399 </td>
+	<td><font >248</font></td>
+	<td>FM</td>
+	<!---td>2022-06-01</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">49.</td>
+	<td>T1137s7</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s7-D1: 1-325 </td>
+	<td><font >325</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-02</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">50.</td>
+	<td>T1137s8</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s8-D1: 16-266 </td>
+	<td><font >251</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-02</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">51.</td>
+	<td>T1137s9</a></td>
+	<td>4592</td>
+        <td>All groups</td>
+        <td>T1137s9-D1: 25-289 </td>
+	<td><font >265</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-02</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fef">8fef</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">52.</td>
+	<td>T1139</a></td>
+	<td>317</td>
+        <td>All groups</td>
+        <td>T1139-D1: 23-317 </td>
+	<td><font >295</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-06</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">53.</td>
+	<td>T1145</a></td>
+	<td>635</td>
+        <td>All groups</td>
+        <td>T1145-D1: 4-102 </td>
+	<td><font >99</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-07</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7uww">7uww</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">54.</td>
+	<td>T1145</a></td>
+	<td>635</td>
+        <td>All groups</td>
+        <td>T1145-D2: 103-635 </td>
+	<td><font >533</font></td>
+	<td>FM</td>
+	<!---td>2022-06-07</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7uww">7uww</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">55.</td>
+	<td>T1146</a></td>
+	<td>310</td>
+        <td>All groups</td>
+        <td>T1146-D1: 29-307 </td>
+	<td><font >279</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-08</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">56.</td>
+	<td>T1147</a></td>
+	<td>103</td>
+        <td>All groups</td>
+        <td>T1147-D1: 12-103 </td>
+	<td><font >92</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-09</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8em5">8em5</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">57.</td>
+	<td>T1150</a></td>
+	<td>370</td>
+        <td>All groups</td>
+        <td>T1150-D1: 3-351 </td>
+	<td><font >349</font></td>
+	<td>FM</td>
+	<!---td>2022-06-13</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">58.</td>
+	<td>T1151s2</a></td>
+	<td>228</td>
+        <td>All groups</td>
+        <td>T1151s2-D1: 28-111 </td>
+	<td><font >84</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-06-13</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8d5v">8d5v</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">59.</td>
+	<td>T1152</a></td>
+	<td>56</td>
+        <td>All groups</td>
+        <td>T1152-D1: 1-46 </td>
+	<td><font >46</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-14</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7r1l">7r1l</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">60.</td>
+	<td>T1153</a></td>
+	<td>299</td>
+        <td>All groups</td>
+        <td>T1153-D1: 3-297 </td>
+	<td><font >295</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-14</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">61.</td>
+	<td>T1154</a></td>
+	<td>1424</td>
+        <td>All groups</td>
+        <td>T1154-D1: 30-234 </td>
+	<td><font >205</font></td>
+	<td>FM</td>
+	<!---td>2022-06-15</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7zcx">7zcx</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">62.</td>
+	<td>T1154</a></td>
+	<td>1424</td>
+        <td>All groups</td>
+        <td>T1154-D2: 235-1069 </td>
+	<td><font >835</font></td>
+	<td>FM</td>
+	<!---td>2022-06-15</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7zcx">7zcx</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">63.</td>
+	<td>T1155</a></td>
+	<td>116</td>
+        <td>All groups</td>
+        <td>T1155-D1: 5-108 </td>
+	<td><font >104</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-06-16</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pbv">8pbv</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">64.</td>
+	<td>T1157s1</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s1-D1: 1-661 </td>
+	<td><font >661</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">65.</td>
+	<td>T1157s1</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s1-D2: 662-757,1005-1022 </td>
+	<td><font >114</font></td>
+	<td>not evaluated</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">66.</td>
+	<td>T1157s1</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s1-D3: 758-1004 </td>
+	<td><font >247</font></td>
+	<td>not evaluated</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">67.</td>
+	<td>T1157s2</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s2-D1: 1-106 </td>
+	<td><font >106</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">68.</td>
+	<td>T1157s2</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s2-D2: 107-323 </td>
+	<td><font >217</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">69.</td>
+	<td>T1157s2</a></td>
+	<td>1524</td>
+        <td>All groups</td>
+        <td>T1157s2-D3: 324-464 </td>
+	<td><font >141</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-17</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8pko">8pko</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">70.</td>
+	<td>T1158</a></td>
+	<td>1340</td>
+        <td>All groups</td>
+        <td>T1158-D1: 48-234,347-394,409-615,861-974 </td>
+	<td><font >556</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8sxa">8sxa</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">71.</td>
+	<td>T1158</a></td>
+	<td>1340</td>
+        <td>All groups</td>
+        <td>T1158-D2: 235-346,692-860,975-1296 </td>
+	<td><font >603</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8sxa">8sxa</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">72.</td>
+	<td>T1159</a></td>
+	<td>160</td>
+        <td>All groups</td>
+        <td>T1159-D1: 1-160 </td>
+	<td><font >160</font></td>
+	<td>FM</td>
+	<!---td>2022-06-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7pzt">7pzt</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">73.</td>
+	<td>T1160</a></td>
+	<td>48</td>
+        <td>All groups</td>
+        <td>T1160-D1: 5-33 </td>
+	<td><font >29</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-21</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8jvn">8jvn</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">74.</td>
+	<td>T1161</a></td>
+	<td>48</td>
+        <td>All groups</td>
+        <td>T1161-D1: 1-48 </td>
+	<td><font >48</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-21</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8jvp">8jvp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">75.</td>
+	<td>T1162</a></td>
+	<td>196</td>
+        <td>All groups</td>
+        <td>T1162-D1: 4-28,59-196 </td>
+	<td><font >163</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-22</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">76.</td>
+	<td>T1163</a></td>
+	<td>191</td>
+        <td>All groups</td>
+        <td>T1163-D1: 8-191 </td>
+	<td><font >184</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-23</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">77.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D1: 2-595 </td>
+	<td><font >594</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">78.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D2: 596-1319 </td>
+	<td><font >724</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">79.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D3: 1320-2008 </td>
+	<td><font >689</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">80.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D4: 2049-2130 </td>
+	<td><font >82</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">81.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D5: 2621-3000 </td>
+	<td><font >380</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">82.</td>
+	<td>T1165</a></td>
+	<td>3014</td>
+        <td>All groups</td>
+        <td>T1165-D6: 2181-2620 </td>
+	<td><font >440</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-06-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">83.</td>
+	<td>T1169</a></td>
+	<td>3364</td>
+        <td>All groups</td>
+        <td>T1169-D1: 1-345 </td>
+	<td><font >345</font></td>
+	<td>FM</td>
+	<!---td>2022-07-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fjp">8fjp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">84.</td>
+	<td>T1169</a></td>
+	<td>3364</td>
+        <td>All groups</td>
+        <td>T1169-D2: 1302-2735 </td>
+	<td><font >1434</font></td>
+	<td>FM</td>
+	<!---td>2022-07-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fjp">8fjp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">85.</td>
+	<td>T1169</a></td>
+	<td>3364</td>
+        <td>All groups</td>
+        <td>T1169-D3: 378-699,1223-1301 </td>
+	<td><font >401</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-07-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fjp">8fjp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">86.</td>
+	<td>T1169</a></td>
+	<td>3364</td>
+        <td>All groups</td>
+        <td>T1169-D4: 700-1222 </td>
+	<td><font >523</font></td>
+	<td>FM</td>
+	<!---td>2022-07-04</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8fjp">8fjp</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">87.</td>
+	<td>T1170</a></td>
+	<td>385</td>
+        <td>All groups</td>
+        <td>T1170-D1: 4-243 </td>
+	<td><font >240</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-06</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7pbr">7pbr</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">88.</td>
+	<td>T1170</a></td>
+	<td>385</td>
+        <td>All groups</td>
+        <td>T1170-D2: 244-315 </td>
+	<td><font >72</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-06</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=7pbr">7pbr</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">89.</td>
+	<td>T1173</a></td>
+	<td>204</td>
+        <td>All groups</td>
+        <td>T1173-D1: 1-62 </td>
+	<td><font >62</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-08</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8on4">8on4</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">90.</td>
+	<td>T1173</a></td>
+	<td>204</td>
+        <td>All groups</td>
+        <td>T1173-D2: 63-204 </td>
+	<td><font >142</font></td>
+	<td>FM</td>
+	<!---td>2022-07-08</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8on4">8on4</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">91.</td>
+	<td>T1174</a></td>
+	<td>338</td>
+        <td>All groups</td>
+        <td>T1174-D1: 1-216 </td>
+	<td><font >216</font></td>
+	<td>FM</td>
+	<!---td>2022-07-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ok3">8ok3</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">92.</td>
+	<td>T1174</a></td>
+	<td>338</td>
+        <td>All groups</td>
+        <td>T1174-D2: 217-338 </td>
+	<td><font >122</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-07-11</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ok3">8ok3</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">93.</td>
+	<td>T1175</a></td>
+	<td>312</td>
+        <td>All groups</td>
+        <td>T1175-D1: 1-312 </td>
+	<td><font >312</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-07-11</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">94.</td>
+	<td>T1176</a></td>
+	<td>170</td>
+        <td>All groups</td>
+        <td>T1176-D9: 1-138,139-170 </td>
+	<td><font >170</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-07-12</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8smq">8smq</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">95.</td>
+	<td>T1177</a></td>
+	<td>223</td>
+        <td>All groups</td>
+        <td>T1177-D1: 1-223 </td>
+	<td><font >223</font></td>
+	<td>FM</td>
+	<!---td>2022-07-12</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">96.</td>
+	<td>T1178</a></td>
+	<td>306</td>
+        <td>All groups</td>
+        <td>T1178-D1: 17-291 </td>
+	<td><font >275</font></td>
+	<td>FM</td>
+	<!---td>2022-07-13</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ufn">8ufn</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">97.</td>
+	<td>T1179</a></td>
+	<td>261</td>
+        <td>All groups</td>
+        <td>T1179-D1: 2-253 </td>
+	<td><font >252</font></td>
+	<td>FM</td>
+	<!---td>2022-07-13</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8tn8">8tn8</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">98.</td>
+	<td>T1180</a></td>
+	<td>404</td>
+        <td>All groups</td>
+        <td>T1180-D1: 1-404 </td>
+	<td><font >404</font></td>
+	<td>TBM-hard</td>
+	<!---td>2022-07-14</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">99.</td>
+	<td>T1181</a></td>
+	<td>2058</td>
+        <td>All groups</td>
+        <td>T1181-D1: 1-88 </td>
+	<td><font >88</font></td>
+	<td>FM/TBM</td>
+	<!---td>2022-07-14</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">100.</td>
+	<td>T1181</a></td>
+	<td>2058</td>
+        <td>All groups</td>
+        <td>T1181-D2: 89-688 </td>
+	<td><font >600</font></td>
+	<td>FM</td>
+	<!---td>2022-07-14</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">101.</td>
+	<td>T1182</a></td>
+	<td>544</td>
+        <td>All groups</td>
+        <td>T1182-D1: 21-544 </td>
+	<td><font >524</font></td>
+	<td>FM</td>
+	<!---td>2022-07-08</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">102.</td>
+	<td>T1183</a></td>
+	<td>190</td>
+        <td>All groups</td>
+        <td>T1183-D1: 1-195 </td>
+	<td><font >195</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-15</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ifx">8ifx</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">103.</td>
+	<td>T1184</a></td>
+	<td>171</td>
+        <td>All groups</td>
+        <td>T1184-D1: 34-63,73-101,106-171 </td>
+	<td><font >125</font></td>
+	<td>FM</td>
+	<!---td>2022-07-15</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">104.</td>
+	<td>T1185s1</a></td>
+	<td>1334</td>
+        <td>All groups</td>
+        <td>T1185s1-D1: 4-71 </td>
+	<td><font >68</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-18</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ouy">8ouy</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">105.</td>
+	<td>T1185s2</a></td>
+	<td>1334</td>
+        <td>All groups</td>
+        <td>T1185s2-D1: 11-66,84-349 </td>
+	<td><font >322</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-18</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ouy">8ouy</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">106.</td>
+	<td>T1185s4</a></td>
+	<td>1334</td>
+        <td>All groups</td>
+        <td>T1185s4-D1: 20-200,222-244,251-280 </td>
+	<td><font >234</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-18</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ouy">8ouy</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">107.</td>
+	<td>T1187</a></td>
+	<td>166</td>
+        <td>All groups</td>
+        <td>T1187-D1: 3-166 </td>
+	<td><font >164</font></td>
+	<td>FM</td>
+	<!---td>2022-07-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8ad2">8ad2</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">108.</td>
+	<td>T1188</a></td>
+	<td>630</td>
+        <td>All groups</td>
+        <td>T1188-D1: 25-597 </td>
+	<td><font >573</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-20</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8c6z">8c6z</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">109.</td>
+	<td>T1194</a></td>
+	<td>168</td>
+        <td>All groups</td>
+        <td>T1194-D1: 7-167 </td>
+	<td><font >161</font></td>
+	<td>FM</td>
+	<!---td>2022-07-27</td--->
+	<td><a  href="http://www.pdb.org/pdb/explore/explore.do?structureId=8okh">8okh</a></td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">110.</td>
+	<td>T1195</a></td>
+	<td>279</td>
+        <td>All groups</td>
+        <td>T1195-D1: 3-279 </td>
+	<td><font >277</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-27</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">111.</td>
+	<td>T1196</a></td>
+	<td>361</td>
+        <td>All groups</td>
+        <td>T1196-D1: 9-351 </td>
+	<td><font >343</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-28</td--->
+	<td>-</td>
+
+</tr>
+
+  <tr>
+	<td  style="width: 35px;">112.</td>
+	<td>T1197</a></td>
+	<td>289</td>
+        <td>All groups</td>
+        <td>T1197-D1: 16-277 </td>
+	<td><font >262</font></td>
+	<td>TBM-easy</td>
+	<!---td>2022-07-29</td--->
+	<td>-</td>
+
+</tr>
+
+</tbody></table>
+    </div>
+  
+	</td>
+	    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+<table width="100%" height="10" border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+</table>
+                <table cellpadding="0" cellspacing="0" style="width: 100%; height: 10px; background: #D8D8D8"><tr><td></td></tr></table>
+
+                <table cellpadding="5" cellspacing="0" style="width: 100%; height: 80px; background: #E8E8E8" class="text">
+                    <tr>
+                        <td style="width: 195px; background: #E8E8E8; text-align: right">
+                            <a href="https://www.predictioncenter.org"><img src="images/thinker.gif" width="62" height="62" alt=""/></a>
+                        </td>
+                        <td>
+                            <span class="title-bottom">Protein Structure Prediction Center</span><br/>
+<!--
+                            Sponsored by the <a href="http://www.nlm.nih.gov/">US National Library of Medicine (NIH/NLM)</a><br/>
+-->
+                            Sponsored by the <a href="http://www.nigms.nih.gov/">US National Institute of General Medical Sciences (NIH/NIGMS)</a><br/>
+                            Please address any questions or queries to:
+                            <script type="text/javascript">
+                                //<![CDATA[
+                                document.write('<a href="mailto:'+email('casp','predictioncenter.org')+'">'+email('casp','predictioncenter.org')+'<\/a>')
+                                //]]>
+                            </script>
+                            <br/>
+                            &copy; 2007-2022, University of California, Davis
+                        </td>
+                    </tr>
+                </table>
+                <script type="text/javascript">
+                  var _gaq = _gaq || [];
+                      _gaq.push(['_setAccount', 'UA-27481388-1']);
+                      _gaq.push(['_trackPageview']);
+                       (function() {
+                   var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                   })();
+               </script>
+
+
