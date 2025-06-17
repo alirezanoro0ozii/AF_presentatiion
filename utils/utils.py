@@ -1,30 +1,100 @@
 import requests
-import json
 import re
 import os
 import subprocess
 from Bio.PDB import PDBParser, Superimposer
+import numpy as np
+from scipy.spatial import cKDTree
+import matplotlib.pyplot as plt
+from Bio.Align import PairwiseAligner
+from Bio.Align.substitution_matrices import load
+from Bio.PDB.Polypeptide import is_aa
 
-def esm_fold(sequence, num_cycle = 6, name = 'esm'):
-    os.makedirs(f'esm_fold/{name}', exist_ok=True)
-    # url = "http://54.214.144.188/omega/get_pdb_url_from_seq_plddt/"
-    url = "http://35.192.181.98:8000/omega/local_nimfold/"
-    data = {
-        "sequence": sequence.replace(" ", "").replace("\"", ""),
-        "num_cycle": num_cycle
+# detect C alpha clashes for deformed trajectories
+def calculate_clash_score(pdb_file, threshold=2.4, only_ca=False):
+    parser = PDBParser(QUIET=True)
+    structure = parser.get_structure('protein', pdb_file)
+
+    atoms = []
+    atom_info = []  # Detailed atom info for debugging and processing
+
+    for model in structure:
+        for chain in model:
+            for residue in chain:
+                for atom in residue:
+                    if atom.element == 'H':  # Skip hydrogen atoms
+                        continue
+                    if only_ca and atom.get_name() != 'CA':
+                        continue
+                    atoms.append(atom.coord)
+                    atom_info.append((chain.id, residue.id[1], atom.get_name(), atom.coord))
+
+    tree = cKDTree(atoms)
+    pairs = tree.query_pairs(threshold)
+
+    valid_pairs = set()
+    for (i, j) in pairs:
+        chain_i, res_i, name_i, coord_i = atom_info[i]
+        chain_j, res_j, name_j, coord_j = atom_info[j]
+
+        # Exclude clashes within the same residue
+        if chain_i == chain_j and res_i == res_j:
+            continue
+
+        # Exclude directly sequential residues in the same chain for all atoms
+        if chain_i == chain_j and abs(res_i - res_j) == 1:
+            continue
+
+        # If calculating sidechain clashes, only consider clashes between different chains
+        if not only_ca and chain_i == chain_j:
+            continue
+
+        valid_pairs.add((i, j))
+
+    return len(valid_pairs)
+
+def calculate_pdb_average(pdb_file):
+    """
+    Calculate average of the last column (B-factor/occupancy) in PDB file
+    
+    Args:
+        pdb_file (str): Path to PDB file
+        
+    Returns:
+        float: Average value of the last column
+    """
+    with open(pdb_file, 'r') as f:
+        lines = f.readlines()
+    
+    total = 0
+    count = 0
+    for line in lines:
+        if line.startswith('ATOM'):
+            try:
+                # The last column is typically at position 60-66
+                value = float(line[60:66].strip())
+                total += value
+                count += 1
+            except ValueError:
+                continue
+    
+    return total / count if count > 0 else 0
+
+def fold(seq, name):
+    os.makedirs(f'esm_fold', exist_ok=True)
+    url = "https://api.esmatlas.com/foldSequence/v1/pdb/"
+
+    payload = seq
+    headers = {
+        'Content-Type': 'text/plain'
     }
-    response = requests.post(url, json=data)
-    if response.status_code == 200:
-        res = response.content.decode("utf-8")
-        res_json = json.loads(res)
-        plddt = res_json["result"]["pLDDT_mean"]
-        pdb_link = res_json["pdb"]
-        pdb_file = requests.get(pdb_link)
-        with open(f'esm_fold/{name}.pdb', 'w') as f:
-            f.write(pdb_file.text)
-        return pdb_file.text, plddt
-    else:
-        return None, None
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    with open(f'esm_fold/{name}.pdb', 'w') as f:
+        f.write(response.text)
+    
+    avg_value = calculate_pdb_average(f'esm_fold/{name}.pdb')
+    return f'esm_fold/{name}.pdb', avg_value
     
 def compute_rmsd(query, reference):
     # Parse structures
@@ -85,12 +155,7 @@ def tm_align(query, reference, name=''):
                 f.write(line)
             icounter+=1
 
-    return results_dict
-
-"""lDDT protein distance score."""
-# import jax.numpy as jnp
-import numpy as jnp
-
+    return results_dict['Chain_1']
 
 def lddt(predicted_points,
          true_points,
@@ -133,84 +198,45 @@ def lddt(predicted_points,
   assert len(true_points_mask.shape) == 3
 
   # Compute true and predicted distance matrices.
-  dmat_true = jnp.sqrt(1e-10 + jnp.sum(
+  dmat_true = np.sqrt(1e-10 + np.sum(
       (true_points[:, :, None] - true_points[:, None, :])**2, axis=-1))
 
-  dmat_predicted = jnp.sqrt(1e-10 + jnp.sum(
+  dmat_predicted = np.sqrt(1e-10 + np.sum(
       (predicted_points[:, :, None] -
        predicted_points[:, None, :])**2, axis=-1))
 
   dists_to_score = (
-      (dmat_true < cutoff).astype(jnp.float32) * true_points_mask *
-      jnp.transpose(true_points_mask, [0, 2, 1]) *
-      (1. - jnp.eye(dmat_true.shape[1]))  # Exclude self-interaction.
+      (dmat_true < cutoff).astype(np.float32) * true_points_mask *
+      np.transpose(true_points_mask, [0, 2, 1]) *
+      (1. - np.eye(dmat_true.shape[1]))  # Exclude self-interaction.
   )
 
   # Shift unscored distances to be far away.
-  dist_l1 = jnp.abs(dmat_true - dmat_predicted)
+  dist_l1 = np.abs(dmat_true - dmat_predicted)
 
   # True lDDT uses a number of fixed bins.
   # We ignore the physical plausibility correction to lDDT, though.
-  score = 0.25 * ((dist_l1 < 0.5).astype(jnp.float32) +
-                  (dist_l1 < 1.0).astype(jnp.float32) +
-                  (dist_l1 < 2.0).astype(jnp.float32) +
-                  (dist_l1 < 4.0).astype(jnp.float32))
+  score = 0.25 * ((dist_l1 < 0.5).astype(np.float32) +
+                  (dist_l1 < 1.0).astype(np.float32) +
+                  (dist_l1 < 2.0).astype(np.float32) +
+                  (dist_l1 < 4.0).astype(np.float32))
 
   # Normalize over the appropriate axes.
   reduce_axes = (-1,) if per_residue else (-2, -1)
-  norm = 1. / (1e-10 + jnp.sum(dists_to_score, axis=reduce_axes))
-  score = norm * (1e-10 + jnp.sum(dists_to_score * score, axis=reduce_axes))
+  norm = 1. / (1e-10 + np.sum(dists_to_score, axis=reduce_axes))
+  score = norm * (1e-10 + np.sum(dists_to_score * score, axis=reduce_axes))
 
   return score[0]
 
-import numpy as np
-import matplotlib.pyplot as plt
-from Bio.PDB import *
-
-def get_coordinates(pdb_file):
-    parser = PDBParser()
-    structure = parser.get_structure('protein', pdb_file)
-    coordinates = []
-    
-    for model in structure:
-        for chain in model:
-            for residue in chain:
-                for atom in residue:
-                    if atom.get_name() == 'CA':  # Only consider alpha carbons
-                        coordinates.append(atom.get_coord())
-    
-    return np.array([coordinates])
-
-def compute_lddt(ref_pdb, pred_pdb, cutoff=15.0):
+def compute_lddt(ref_pdb, pred_pdb):
     true_points = get_coordinates(ref_pdb)
     predicted_points = get_coordinates(pred_pdb)
     true_points_mask = np.ones(shape=[1, len(true_points), 1])
     return lddt(predicted_points, true_points, true_points_mask)
 
-
-from Bio.PDB import PDBParser
-import numpy as np
-from scipy.spatial import cKDTree
-
-def parse_ca_coords(pdb_path):
-    """Return sorted list of residue IDs and corresponding Cα coords."""
-    parser = PDBParser(QUIET=True)
-    structure = parser.get_structure('S', pdb_path)
-    coords = []
-    res_ids = []
-    for model in structure:
-        for chain in model:
-            for residue in chain:
-                if 'CA' in residue:
-                    coords.append(residue['CA'].get_coord())
-                    res_ids.append((chain.id, residue.id[1]))
-    return np.array(coords), res_ids
-
 def compute_lddt2(ref_pdb, pred_pdb, cutoff=15.0):
-    # load coordinates and residue mappings
-    ref_coords, ref_ids = parse_ca_coords(ref_pdb)
-    pred_coords, pred_ids = parse_ca_coords(pred_pdb)
-    assert ref_ids == pred_ids, "Residue ordering/mapping must match"
+    ref_coords = get_coordinates(ref_pdb).squeeze(0)
+    pred_coords = get_coordinates(pred_pdb).squeeze(0)
 
     # build a neighbor-search tree on the reference coords
     tree = cKDTree(ref_coords)
@@ -260,30 +286,6 @@ aa_heavy_atoms = {
     "VAL": ["N", "CA", "C", "O", "CB", "CG1", "CG2"]
 }
 
-Three_letter_to_one_letter = {
-    "ALA": "A", "ARG": "R", "ASN": "N",
-    "ASP": "D", "CYS": "C", "GLN": "Q",
-    "GLU": "E", "GLY": "G", "HIS": "H",
-    "ILE": "I", "LEU": "L", "LYS": "K",
-    "MET": "M", "PHE": "F", "PRO": "P",
-    "SER": "S", "THR": "T", "TRP": "W",
-    "TYR": "Y", "VAL": "V"
-}
-
-one_letter_to_three_letter = {v: k for k, v in Three_letter_to_one_letter.items()}
-
-def element(atom):
-    if "N" in atom:
-        return "N"
-    if "O" in atom:
-        return "O"
-    else:
-        return "C"
-
-import numpy as np
-import matplotlib.pyplot as plt
-from Bio.PDB import *
-
 def get_coordinates(pdb_file):
     parser = PDBParser()
     structure = parser.get_structure('protein', pdb_file)
@@ -296,9 +298,10 @@ def get_coordinates(pdb_file):
                     if atom.get_name() == 'CA':  # Only consider alpha carbons
                         coordinates.append(atom.get_coord())
     
-    return np.array(coordinates)
+    return np.array([coordinates])
 
 def calculate_distance_matrix(coordinates):
+    coordinates = coordinates.squeeze(0)
     n = len(coordinates)
     distance_matrix = np.zeros((n, n))
     
@@ -308,7 +311,8 @@ def calculate_distance_matrix(coordinates):
     
     return distance_matrix
 
-def plot_distance_matrix(pdb_file):
+def plot_distance_matrix(pdb_file, name):
+    os.makedirs(f'PD/{pdb_file.split("/")[-1].split(".")[0]}', exist_ok=True)
     # Get coordinates from PDB file
     coordinates = get_coordinates(pdb_file)
 
@@ -322,7 +326,23 @@ def plot_distance_matrix(pdb_file):
     plt.title('Pairwise Distance Matrix')
     plt.xlabel('Residue Index')
     plt.ylabel('Residue Index')
-    plt.savefig(f'PD/{pdb_file.split("/")[-1]}_distance_matrix.png')
+    plt.savefig(f'PD/{pdb_file.split("/")[-1].split(".")[0]}/{name}_distance_matrix.png')
+    plt.close()
+
+def plot_distance_matrix_difference(pdb_file_ref, pdb_file_query):
+    coordinates_ref = get_coordinates(pdb_file_ref)
+    coordinates_query = get_coordinates(pdb_file_query)
+    distance_matrix_ref = calculate_distance_matrix(coordinates_ref)
+    distance_matrix_query = calculate_distance_matrix(coordinates_query)
+    distance_matrix_difference = np.abs(distance_matrix_ref - distance_matrix_query)
+    plt.figure(figsize=(10, 8))
+    plt.imshow(distance_matrix_difference, cmap='viridis')
+    plt.colorbar(label='Distance (Å)')
+    plt.title('Pairwise Distance Matrix Difference')
+    plt.xlabel('Residue Index')
+    plt.ylabel('Residue Index')
+    plt.savefig(f'PD/{pdb_file_ref.split("/")[-1].split(".")[0]}/distance_matrix_difference.png')
+    plt.close()
 
 # clean unnecessary rosetta information from PDB
 def clean_pdb(pdb_file):
@@ -388,49 +408,6 @@ def compute_rmsd_95(query, reference):
     
     return rmsd_95
 
-
-def read_sequence_from_pdb(pdb_file):
-    """
-    Read a PDB file and return the protein sequence without using any external libraries.
-    
-    Args:
-        pdb_file (str): Path to the PDB file
-        
-    Returns:
-        str: Protein sequence
-    """
-    # Dictionary mapping three-letter amino acid codes to one-letter codes
-    three_to_one = {
-        "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C",
-        "GLN": "Q", "GLU": "E", "GLY": "G", "HIS": "H", "ILE": "I",
-        "LEU": "L", "LYS": "K", "MET": "M", "PHE": "F", "PRO": "P",
-        "SER": "S", "THR": "T", "TRP": "W", "TYR": "Y", "VAL": "V"
-    }
-    
-    sequence = ""
-    current_chain = None
-    current_residue = None
-    
-    with open(pdb_file, 'r') as f:
-        for line in f:
-            if line.startswith('ATOM'):
-                # Extract chain ID and residue number
-                chain = line[21]
-                res_num = int(line[22:26])
-                res_name = line[17:20].strip()
-                
-                # Only process if it's a new residue
-                if chain != current_chain or res_num != current_residue:
-                    if res_name in three_to_one:
-                        sequence += three_to_one[res_name]
-                    current_chain = chain
-                    current_residue = res_num
-                    
-    return sequence
-
-from Bio.Align import PairwiseAligner
-from Bio.Align.substitution_matrices import load
-
 def calculate_similarity(seq1, seq2, matrix_name="BLOSUM62", gap_open=-10, gap_extend=-0.5):
     """
     Calculate percent identity and percent similarity between two protein sequences using a global alignment.
@@ -485,10 +462,6 @@ def calculate_similarity(seq1, seq2, matrix_name="BLOSUM62", gap_open=-10, gap_e
     percent_similarity = ((identical + similar) / aligned_length) * 100 if aligned_length > 0 else 0
 
     return percent_identity, percent_similarity, best_alignment
-
-
-from Bio.PDB import *
-from Bio.PDB.Polypeptide import is_aa
 
 Three_letter_to_one_letter = {
     "ALA": "A", "ARG": "R", "ASN": "N",

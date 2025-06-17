@@ -1,34 +1,30 @@
-from utils.utils import esm_fold, get_sequence_from_pdb, tm_align, compute_rmsd, compute_lddt, compute_lddt2, plot_distance_matrix, compute_rmsd_95
+from utils.utils import *
 
 def calculate_metrics(pdb_name):
-    # sequence = get_sequence_from_pdb(pdb_name)
-    # print("Sequence: ", sequence)
-    # pdb_name_esm, plddt = esm_fold(sequence, pdb_name)
-    # print("esm_fold: ", pdb_name_esm, "plddt: ", plddt)
-    pdb_name_esm = "esm_fold/T1025_esm.pdb"
-    pdb_name_tm, tm_score = tm_align(pdb_name, pdb_name_esm, '1025')
-    print("tm_align: ", pdb_name_tm, "tm_score: ", tm_score)
-    rmsd = compute_rmsd(pdb_name, pdb_name_esm)
-    print("rmsd: ", rmsd)
-    lddt = compute_lddt(pdb_name, pdb_name_esm)
-    print("lddt: ", lddt)
-    per_res, g_lddt = compute_lddt2(pdb_name, pdb_name_esm)
-    print("per_res: ", per_res)
-    print("g_lddt: ", g_lddt)
-    plot_distance_matrix(pdb_name)
-    plot_distance_matrix(pdb_name_esm)
-    print("plot_distance_matrix: ", pdb_name, pdb_name_esm)
-    rmsd_95 = compute_rmsd_95(pdb_name, pdb_name_esm)
-    return plddt, tm_score, rmsd, lddt, per_res, g_lddt, rmsd_95
-
+    sequence = get_sequence_from_pdb(pdb_name)
+    pdb_name_query, plddt = fold(sequence, pdb_name.split('/')[-1].split('.')[0])
+    results_dict = tm_align(pdb_name, pdb_name_query, pdb_name.split('/')[-1].split('.')[0])
+    rmsd = compute_rmsd(pdb_name, pdb_name_query)
+    lddt = compute_lddt(pdb_name, pdb_name_query)
+    per_res, g_lddt = compute_lddt2(pdb_name, pdb_name_query)
+    plot_distance_matrix(pdb_name, 'ref')
+    plot_distance_matrix(pdb_name_query, 'query')
+    plot_distance_matrix_difference(pdb_name, pdb_name_query)
+    rmsd_95 = compute_rmsd_95(pdb_name, pdb_name_query)
+    ref_clash_score = calculate_clash_score(pdb_name)
+    query_clash_score = calculate_clash_score(pdb_name_query)
+    return sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score
 
 pdb_name = "CASP/casp14_targets/T1025.pdb"
-plddt, tm_score, rmsd, lddt, per_res, g_lddt, rmsd_95 = calculate_metrics(pdb_name)
+sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score = calculate_metrics(pdb_name)
+print("sequence: ", sequence)
 print("plddt: ", plddt)
-print("tm_score: ", tm_score)
+print("tm_score: ", results_dict)
 print("rmsd: ", rmsd)
 print("lddt: ", lddt)
-print(f"Global LDDT = {g_lddt*100:.2f}")
-print(f"RMSD95 = {rmsd_95:.2f}")
-for idx, score in enumerate(per_res):
-    print(f"Res {idx+1:4d}: LDDT = {score*100:5.1f}")
+print("Global LDDT: ", g_lddt)
+print("RMSD95: ", rmsd_95)
+print("ref_clash_score: ", ref_clash_score)
+print("query_clash_score: ", query_clash_score)
+# for idx, score in enumerate(per_res):
+#     print("Res ", idx+1, ": LDDT = ", score)

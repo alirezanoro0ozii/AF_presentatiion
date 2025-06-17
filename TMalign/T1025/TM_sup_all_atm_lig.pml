@@ -1,5 +1,5 @@
 #!/usr/bin/env pymol
-load T1025/TM_sup_all_atm_lig, format=pdb
+load TMalign/T1025/TM_sup_all_atm_lig, format=pdb
 hide all
 show cartoon
 color blue, chain A

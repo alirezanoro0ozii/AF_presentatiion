@@ -1,5 +1,5 @@
 #!/usr/bin/env pymol
-load T1025/TM_sup_all, format=pdb
+load TMalign/T1025/TM_sup_all, format=pdb
 hide all
 show stick
 color blue, chain A
