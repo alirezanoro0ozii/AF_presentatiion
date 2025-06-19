@@ -13,10 +13,11 @@ def calculate_metrics(pdb_name):
     rmsd_95 = compute_rmsd_95(pdb_name, pdb_name_query)
     ref_clash_score = calculate_clash_score(pdb_name)
     query_clash_score = calculate_clash_score(pdb_name_query)
-    return sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score
+    gdt = compute_gdt_ts(pdb_name, pdb_name_query)
+    return sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score, gdt
 
-pdb_name = "CASP/casp14_targets/T1025.pdb"
-sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score = calculate_metrics(pdb_name)
+pdb_name = "CASP/casp14_targets/T1049.pdb"
+sequence, plddt, results_dict, rmsd, lddt, per_res, g_lddt, rmsd_95, ref_clash_score, query_clash_score, gdt = calculate_metrics(pdb_name)
 print("sequence: ", sequence)
 print("plddt: ", plddt)
 print("tm_score: ", results_dict)
@@ -26,5 +27,6 @@ print("Global LDDT: ", g_lddt)
 print("RMSD95: ", rmsd_95)
 print("ref_clash_score: ", ref_clash_score)
 print("query_clash_score: ", query_clash_score)
+print("gdt: ", gdt)
 # for idx, score in enumerate(per_res):
 #     print("Res ", idx+1, ": LDDT = ", score)

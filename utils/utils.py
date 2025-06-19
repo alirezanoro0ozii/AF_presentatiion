@@ -505,3 +505,80 @@ def read_fasta_sequences(file_path):
             sequences[current_id] = current_seq
             
     return sequences
+
+def parse_ca_coordinates(pdb_file):
+    parser = PDBParser()
+    structure = parser.get_structure('protein', pdb_file)
+    coordinates = []
+    
+    for model in structure:
+        for chain in model:
+            for residue in chain:
+                for atom in residue:
+                    if atom.get_name() == 'CA':  # Only consider alpha carbons
+                        coordinates.append((residue.get_id()[1], atom.get_coord()))
+    
+    return coordinates
+
+def kabsch(P, Q):
+    """
+    Kabsch algorithm: given two (N×3) point sets P and Q (already centered),
+    returns rotation matrix U that minimizes RMSD(P, Q U).
+    """
+    C = P.T @ Q
+    V, S, Wt = np.linalg.svd(C)
+    d = np.sign(np.linalg.det(V @ Wt))
+    D = np.diag([1,1,d])
+    U = V @ D @ Wt
+    return U
+
+def compute_gdt_ts(pdb_model, pdb_target, cutoffs=(1,2,4,8), max_iter=10):
+    """
+    Compute GDT-TS between model and target PDBs.
+    
+    Returns: GDT_TS float in [0,100].
+    """
+    # 1) Parse CA coords and build matching lists
+    m_ca = parse_ca_coordinates(pdb_model)
+    t_ca = parse_ca_coordinates(pdb_target)
+    # build dict for target by residue_id
+    t_dict = {rid: coord for rid, coord in t_ca}
+    # keep only residues present in both
+    pairs = [(m_coord, t_dict[rid]) for rid, m_coord in m_ca if rid in t_dict]
+    if not pairs:
+        raise ValueError("No matching Cα residues found.")
+    P = np.array([p for p, _ in pairs])
+    Q = np.array([q for _, q in pairs])
+    L = len(P)
+
+    # 2) center both on their centroids
+    P_centroid = P.mean(axis=0)
+    Q_centroid = Q.mean(axis=0)
+    P -= P_centroid
+    Q -= Q_centroid
+
+    scores = []
+    for d in cutoffs:
+        P_sub, Q_sub = P.copy(), Q.copy()
+        # iterative selection & superposition
+        for _ in range(max_iter):
+            # find rotation on current subset
+            U = kabsch(P_sub, Q_sub)
+            P_rot = P @ U
+            # compute distances to target
+            dists = np.linalg.norm(P_rot - Q, axis=1)
+            # select only those within cutoff
+            mask = dists <= d
+            newP = P[mask]
+            newQ = Q[mask]
+            # if no change or empty, stop
+            if len(newP)==len(P_sub) or len(newP)==0:
+                break
+            P_sub, Q_sub = newP, newQ
+
+        Nd = len(P_sub)
+        scores.append(100.0 * Nd / L)
+
+    # 3) average the four percentages
+    gdt_ts = float(np.mean(scores))
+    return gdt_ts
