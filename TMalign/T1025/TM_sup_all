@@ -495,7 +495,7 @@ select all
 exit
 REMARK TM-align
 REMARK Chain 1:CASP/casp14_targets/T1025.pdb Size= 257
-REMARK Chain 2:esm_fold/T1025.pdb Size= 257 (TM-score is normalized by  257, d0=  5.93)
+REMARK Chain 2:pdbs/esm_fold/T1025.pdb Size= 257 (TM-score is normalized by  257, d0=  5.93)
 REMARK Aligned length= 249, RMSD=  1.49, TM-score=0.92607, ID=0.972
 ATOM      1  CA  SER A  12      10.098   7.174 -14.237
 ATOM      2  CA  ASP A  13      12.642   5.576 -11.848

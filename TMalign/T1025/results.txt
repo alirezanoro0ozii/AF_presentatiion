@@ -6,7 +6,7 @@
  *********************************************************************
 
 Name of Chain_1: CASP/casp14_targets/T1025.pdb (to be superimposed onto Chain_2)
-Name of Chain_2: esm_fold/T1025.pdb
+Name of Chain_2: pdbs/esm_fold/T1025.pdb
 Length of Chain_1: 257 residues
 Length of Chain_2: 257 residues
 

@@ -81,7 +81,6 @@ def calculate_pdb_average(pdb_file):
     return total / count if count > 0 else 0
 
 def fold(seq, name):
-    os.makedirs(f'esm_fold', exist_ok=True)
     url = "https://api.esmatlas.com/foldSequence/v1/pdb/"
 
     payload = seq
@@ -90,11 +89,11 @@ def fold(seq, name):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    with open(f'esm_fold/{name}.pdb', 'w') as f:
+    with open(f'pdbs/esm_fold/{name}.pdb', 'w') as f:
         f.write(response.text)
     
-    avg_value = calculate_pdb_average(f'esm_fold/{name}.pdb')
-    return f'esm_fold/{name}.pdb', avg_value
+    avg_value = calculate_pdb_average(f'pdbs/esm_fold/{name}.pdb')
+    return f'pdbs/esm_fold/{name}.pdb', avg_value
     
 def compute_rmsd(query, reference):
     # Parse structures
