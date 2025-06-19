@@ -20,5 +20,5 @@ SIFSYITESTGTPSNATYTYVIERWDPETSGILNPCYGWPVCYVT------------------VN-HK-H-TVN---GTG
 .:::::::::::::::::::::::..                                     .. .  . .     ...::::.               :: ::.           :::::  :::. .                        .::::::..                     .::.             
 SIFSYITESTGTPSNATYTYVIERWD-------------------PETSGILNPCYGWPVCYVTVNH-KHTV--NGTGGNPAFQIARIEKLRTLAEVRDVVLKNRSFPIEGQTTHRGPSLNS--NQEC-V----------------GLFYQPNSSGISPRGKL-------------------LPGSLC-------GIAPPP
 
-Total CPU time is  0.05 seconds
+Total CPU time is  0.04 seconds
 
