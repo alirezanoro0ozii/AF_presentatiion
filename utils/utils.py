@@ -141,6 +141,18 @@ def tm_align(query, reference, name=''):
     score_getter = lambda s: float(re.findall(r"=\s+([0-9.]+)", s)[0])
     results_dict = {key_getter(s): score_getter(s) for s in score_lines}
     
+    # Extract aligned length, RMSD, and sequence identity from score_lines
+    aligned_info = None
+    for line in result.decode().split("\n"):
+        if line.startswith("Aligned length="):
+            aligned_info = line
+            break
+    
+    if aligned_info:
+        # Parse aligned length, RMSD, and sequence identity
+        rmsd_value = float(re.findall(r"RMSD=\s+([0-9.]+)", aligned_info)[0])
+        seq_id = float(re.findall(r"Seq_ID=n_identical/n_aligned=\s+([0-9.]+)", aligned_info)[0])
+    
     filename = output_dir + '/TM_sup_all_atm'
 
     with open(filename, "r") as f:
@@ -154,7 +166,7 @@ def tm_align(query, reference, name=''):
                 f.write(line)
             icounter+=1
 
-    return results_dict['Chain_1']
+    return results_dict['Chain_1'], rmsd_value, seq_id
 
 def lddt(predicted_points,
          true_points,
@@ -310,8 +322,11 @@ def calculate_distance_matrix(coordinates):
     
     return distance_matrix
 
-def plot_distance_matrix(pdb_file, name):
-    os.makedirs(f'PD/{pdb_file.split("/")[-1].split(".")[0]}', exist_ok=True)
+def plot_distance_matrix(pdb_file, name, remove_domain=False):
+    if remove_domain:
+        os.makedirs(f'PD/{pdb_file.split("/")[-1].split(".")[0].split("-")[0]}', exist_ok=True)
+    else:
+        os.makedirs(f'PD/{pdb_file.split("/")[-1].split(".")[0]}', exist_ok=True)
     # Get coordinates from PDB file
     coordinates = get_coordinates(pdb_file)
 
@@ -325,10 +340,13 @@ def plot_distance_matrix(pdb_file, name):
     plt.title('Pairwise Distance Matrix')
     plt.xlabel('Residue Index')
     plt.ylabel('Residue Index')
-    plt.savefig(f'PD/{pdb_file.split("/")[-1].split(".")[0]}/{name}_distance_matrix.png')
+    if remove_domain:
+        plt.savefig(f'PD/{pdb_file.split("/")[-1].split(".")[0].split("-")[0]}/{name}_distance_matrix.png')
+    else:
+        plt.savefig(f'PD/{pdb_file.split("/")[-1].split(".")[0]}/{name}_distance_matrix.png')
     plt.close()
 
-def plot_distance_matrix_difference(pdb_file_ref, pdb_file_query):
+def plot_distance_matrix_difference(pdb_file_ref, pdb_file_query, model_name):
     coordinates_ref = get_coordinates(pdb_file_ref)
     coordinates_query = get_coordinates(pdb_file_query)
     distance_matrix_ref = calculate_distance_matrix(coordinates_ref)
@@ -340,7 +358,7 @@ def plot_distance_matrix_difference(pdb_file_ref, pdb_file_query):
     plt.title('Pairwise Distance Matrix Difference')
     plt.xlabel('Residue Index')
     plt.ylabel('Residue Index')
-    plt.savefig(f'PD/{pdb_file_ref.split("/")[-1].split(".")[0]}/distance_matrix_difference.png')
+    plt.savefig(f'PD/{pdb_file_ref.split("/")[-1].split(".")[0]}/{model_name}_distance_matrix_difference.png')
     plt.close()
 
 # clean unnecessary rosetta information from PDB
@@ -581,3 +599,30 @@ def compute_gdt_ts(pdb_model, pdb_target, cutoffs=(1,2,4,8), max_iter=10):
     # 3) average the four percentages
     gdt_ts = float(np.mean(scores))
     return gdt_ts
+
+# import os
+
+# def check_files_in_folder(folder1, folder2):
+#     """
+#     Check if all files in folder1 are present in folder2.
+#     Returns a list of files that are missing in folder2.
+#     """
+#     files1 = set(os.listdir(folder1))
+#     files2 = set(os.listdir(folder2))
+#     # Only consider files, not directories
+#     files1 = {f for f in files1 if os.path.isfile(os.path.join(folder1, f))}
+#     files2 = {f for f in files2 if os.path.isfile(os.path.join(folder2, f))}
+#     missing_files = files1 - files2
+#     common_files = files1 & files2
+#     if not missing_files:
+#         print("All files in '{}' are present in '{}'.".format(folder1, folder2))
+#     else:
+#         print("Missing files in '{}':".format(folder2))
+#         for f in missing_files:
+#             print(f)
+#     print("Common files:", len(common_files))
+#     return missing_files, common_files
+
+# missing_files, common_files = check_files_in_folder('pdbs/casp14_alphafold', 'CASP/casp14_targets')
+# print(missing_files)
+# print(common_files)

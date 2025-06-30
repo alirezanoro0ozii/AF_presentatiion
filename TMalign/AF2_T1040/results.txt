@@ -1,0 +1,24 @@
+
+ *********************************************************************
+ * TM-align (Version 20220412): protein structure alignment          *
+ * References: Y Zhang, J Skolnick. Nucl Acids Res 33, 2302-9 (2005) *
+ * Please email comments and suggestions to zhanglab@zhanggroup.org   *
+ *********************************************************************
+
+Name of Chain_1: CASP/casp14_targets/T1040.pdb (to be superimposed onto Chain_2)
+Name of Chain_2: pdbs/AF2_paper/T1040-D1.pdb
+Length of Chain_1: 130 residues
+Length of Chain_2: 130 residues
+
+Aligned length= 128, RMSD=   2.15, Seq_ID=n_identical/n_aligned= 0.906
+TM-score= 0.81153 (if normalized by length of Chain_1, i.e., LN=130, d0=4.23)
+TM-score= 0.81153 (if normalized by length of Chain_2, i.e., LN=130, d0=4.23)
+(You should use TM-score normalized by length of the reference structure)
+
+(":" denotes residue pairs of d <  5.0 Angstrom, "." denotes other aligned residues)
+PNFKVEHTKKSFKLAKDYIAQNEITVEEMYDELE--DHGFNIDDIANGEEVTESAITEAFIKNHILNSNSELEYHNDFVKQHNIDAVNKIDFLGYSEELHKNKSEQLQNRLFDLYWAVLTNEKTYGDLITPI
+::::::::::::::::::::::::::::::::::  ::::::::.:::  ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+PNFKVEHTKKSFKLAKDYIAQNEITVEEMYDELEDHGFNIDDIANGEE--VTESAITEAFIKNHILNSNSELEYHNDFVKQHNIDAVNKIDFLGYSEELHKNKSEQLQNRLFDLYWAVLTNEKTYGDLITPI
+
+Total CPU time is  0.03 seconds
+
